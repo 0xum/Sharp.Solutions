@@ -23,7 +23,7 @@ namespace Sharp.Utils
             DumpModules ( );
         }
 
-        void OpenProcess ( )
+        private void OpenProcess ( )
         {
             var flags =
                 (int) ProcessAccessFlags.VirtualMemoryRead |
@@ -32,13 +32,14 @@ namespace Sharp.Utils
 
             OpenHandle = Kernel32.OpenProcess ( flags, false, Process.Id );
         }
-        void DumpModules ( )
+
+        private void DumpModules ( )
         {
             Modules = new Dictionary<string, IntPtr> ( );
 
             foreach ( ProcessModule module in Process.Modules )
             {
-                if(module is  null )
+                if ( module is null )
                 {
                     continue;
                 }
@@ -47,7 +48,7 @@ namespace Sharp.Utils
             }
         }
 
-        public T RPM<T> ( int address )
+        public T Read<T> ( IntPtr address )
         {
             var length = Marshal.SizeOf(typeof(T));
 
@@ -56,26 +57,28 @@ namespace Sharp.Utils
 
             var buffer = new byte[length];
             var nBytesRead = uint.MinValue;
-            Kernel32.ReadProcessMemory ( OpenHandle, ( IntPtr ) address, buffer, ( uint ) length, ref nBytesRead );
+            Kernel32.ReadProcessMemory ( OpenHandle, address, buffer, ( uint ) length, ref nBytesRead );
             return GetStructure<T> ( buffer );
         }
-        public byte [ ] RPM_RB ( int address, int length )
+
+        public byte [ ] ReadBytes ( IntPtr address, int length )
         {
             var buffer = new byte[length];
             var nBytesRead = uint.MinValue;
-            Kernel32.ReadProcessMemory(OpenHandle, (IntPtr)address, buffer, (uint)length, ref nBytesRead);
+            Kernel32.ReadProcessMemory ( OpenHandle, address, buffer, ( uint ) length, ref nBytesRead );
             return buffer;
         }
-        public float [ ] RPM_M<T> ( int Adress, int MatrixSize ) where T : struct
+
+        public float [ ] ReadMatrix<T> ( IntPtr Adress, int MatrixSize ) where T : struct
         {
             var ByteSize = Marshal.SizeOf(typeof(T));
             byte[] buffer = new byte[ByteSize * MatrixSize];
-            RPM_RB ( Adress, buffer.Length );
+            ReadBytes ( Adress, buffer.Length );
 
             return ConvertToFloatArray ( buffer );
         }
 
-        public void WPM ( int address, object value )
+        public void Write ( IntPtr address, object value )
         {
             var length = Marshal.SizeOf(value.GetType());
             var buffer = new byte[length];
@@ -88,7 +91,8 @@ namespace Sharp.Utils
             var nBytesRead = uint.MinValue;
             Kernel32.WriteProcessMemory ( OpenHandle, ( IntPtr ) address, buffer, ( IntPtr ) length, ref nBytesRead );
         }
-        public void WPM_WS ( IntPtr handle, int address, string value )
+
+        public void WriteString ( IntPtr handle, int address, string value )
         {
             byte[] data = Encoding.Default.GetBytes(value + "\0");
 
@@ -102,6 +106,7 @@ namespace Sharp.Utils
             handle.Free ( );
             return structure;
         }
+        
         public float [ ] ConvertToFloatArray ( byte [ ] bytes )
         {
             if ( bytes.Length % 4 != 0 )
@@ -114,6 +119,5 @@ namespace Sharp.Utils
 
             return floats;
         }
-
     }
 }
