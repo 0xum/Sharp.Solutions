@@ -13,6 +13,7 @@ namespace Sharp.Utils
     {
         public Process Process { get; set; }
         public IntPtr OpenHandle { get; set; }
+
         public Dictionary<string, IntPtr> Modules { get; set; }
 
         public Memory ( Process process )
@@ -69,10 +70,10 @@ namespace Sharp.Utils
             return buffer;
         }
 
-        public float [ ] ReadMatrix<T> ( IntPtr Adress, int MatrixSize ) where T : struct
+        public float [ ] ReadMatrix<T> ( IntPtr Adress, int matrixSize ) where T : struct
         {
             var ByteSize = Marshal.SizeOf(typeof(T));
-            byte[] buffer = new byte[ByteSize * MatrixSize];
+            byte[] buffer = new byte[ByteSize * matrixSize];
             ReadBytes ( Adress, buffer.Length );
 
             return ConvertToFloatArray ( buffer );
@@ -91,7 +92,7 @@ namespace Sharp.Utils
             var nBytesRead = uint.MinValue;
             Kernel32.WriteProcessMemory ( OpenHandle, ( IntPtr ) address, buffer, ( IntPtr ) length, ref nBytesRead );
         }
-
+            
         public void WriteString ( IntPtr handle, int address, string value )
         {
             byte[] data = Encoding.Default.GetBytes(value + "\0");

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 
 using Sharp.Enums;
@@ -11,33 +12,49 @@ namespace Sharp.Utils
     /// </summary>
     public static class Input
     {
-        public static VirtualKeys LastCapturedKey { get; set; }
 
         private static bool [ ] KeyStates = new bool [ 256 ];
+
+        public static VirtualKeys LastCapturedKey { get; set; }
+
+        private static List<VirtualKeys> VirtualKeysHistory { get; set; }
+
+        static Thread KeyCaptureThread;
 
         /// <summary>
         /// Creates a keyboard history.
         /// </summary>
         public static void CaptureKeyHistory ( )
         {
-            new Thread ( ( ) =>
+            KeyCaptureThread = new Thread ( ( ) =>
+             {
+                 var keys = Enum.GetValues(typeof(VirtualKeys));
+
+                 VirtualKeysHistory = new List<VirtualKeys> ( );
+
+                 while ( true )
+                 {
+                     foreach ( VirtualKeys key in keys )
+                     {
+                         if ( IsKeyPressed ( key ) )
+                         {
+                             VirtualKeysHistory.Add ( key );
+
+                             if ( LastCapturedKey != key )
+                             {
+                                 LastCapturedKey = key;
+                             }
+                         }
+                     }
+
+                     Thread.Sleep ( 50 );
+                 }
+             } );
+
+            if ( KeyCaptureThread != null && KeyCaptureThread.ThreadState != ThreadState.Running )
             {
-                var keys = Enum.GetValues(typeof(VirtualKeys));
-
-                while ( true )
-                {
-                    foreach ( VirtualKeys key in keys )
-                    {
-                        if ( IsKeyPressed ( key ) )
-                        {
-                            LastCapturedKey = key;
-                        }
-                    }
-
-                    Thread.Sleep ( 50 );
-                }
-
-            } ).Start ( );
+                KeyCaptureThread.Start ( );
+            }
         }
 
         /// <summary>
@@ -47,6 +64,7 @@ namespace Sharp.Utils
         public static VirtualKeys GetLastPressedKey ( )
         {
             var lastKey = VirtualKeys.Noname;
+
             var keys = Enum.GetValues(typeof(VirtualKeys));
 
             while ( lastKey is VirtualKeys.Noname )
@@ -144,7 +162,7 @@ namespace Sharp.Utils
 
         /// <summary>
         /// Simulate a mouse button press.
-        /// </summary>
+        /// </summary>  
         /// <param name="button">Mouse Button</param>
         /// <param name="Ms">How long the button will be pressed, If is zero the button will be pressed indefinitely</param>
         public static void SendMousePress ( MouseButtons button = MouseButtons.Left, int Ms = 100 )
