@@ -13,18 +13,26 @@ namespace Sharp.Utils
     public static class WindowManager
     {
 
+        /*
+         * I could just point these methods instead of using it as blocks.
+         * But in order to follow the whole project structure, i keep with blocks.
+         */
+
         public static void HideConsole ( )
         {
             User32.ShowWindow ( Kernel32.GetConsoleWindow ( ), 0 );
         }
+
         public static void ShowConsole ( )
         {
             User32.ShowWindow ( Kernel32.GetConsoleWindow ( ), 5 );
         }
+
         public static void AllocateConsole ( )
         {
             Kernel32.AllocConsole ( );
         }
+
         public static void FreeConsole ( )
         {
             Kernel32.FreeConsole ( );
@@ -40,7 +48,11 @@ namespace Sharp.Utils
                 User32.SetForegroundWindow ( process.MainWindowHandle );
             }
         }
-        public static void SetWindowAsForeground ( IntPtr mainHwnd ) => User32.SetForegroundWindow ( mainHwnd );
+
+        public static void SetWindowAsForeground ( IntPtr mainHwnd )
+        {
+            User32.SetForegroundWindow ( mainHwnd );
+        }
 
         public static void EnableTransparency ( IntPtr handle, Rectangle size )
         {
@@ -55,17 +67,13 @@ namespace Sharp.Utils
             {
                 if ( stealthMode )
                 {
-
                     int windowLong = User32.GetWindowLong ( handle, ( int ) WindowLongParamFlags.GWL_EXSTYLE ) | ( int ) WindowStylesExFlags.WS_EX_LAYERED | ( int ) WindowStylesExFlags.WS_EX_TRANSPARENT | ( int ) WindowStylesExFlags.WS_EX_TOOLWINDOW;
                     User32.SetWindowLong ( handle, WindowLongParamFlags.GWL_EXSTYLE, new IntPtr ( windowLong ) );
-
                 }
                 else
                 {
-
                     int windowLong = User32.GetWindowLong ( handle, ( int ) WindowLongParamFlags.GWL_EXSTYLE ) & ( int ) WindowStylesExFlags.WS_EX_LAYERED & ( int ) WindowStylesExFlags.WS_EX_TRANSPARENT;
                     User32.SetWindowLong ( handle, WindowLongParamFlags.GWL_EXSTYLE, new IntPtr ( windowLong ) );
-
                 }
 
             }
@@ -73,17 +81,13 @@ namespace Sharp.Utils
             {
                 if ( stealthMode )
                 {
-
                     int windowLong = User32.GetWindowLong ( handle, ( int ) WindowLongParamFlags.GWL_EXSTYLE ) & ( int ) WindowStylesExFlags.WS_EX_LAYERED & ( int ) WindowStylesExFlags.WS_EX_TRANSPARENT | ( int ) WindowStylesExFlags.WS_EX_TOOLWINDOW;
                     User32.SetWindowLong ( handle, WindowLongParamFlags.GWL_EXSTYLE, new IntPtr ( windowLong ) );
-
                 }
                 else
                 {
-
                     int windowLong = User32.GetWindowLong ( handle, ( int ) WindowLongParamFlags.GWL_EXSTYLE ) & ( int ) WindowStylesExFlags.WS_EX_LAYERED & ( int ) WindowStylesExFlags.WS_EX_TRANSPARENT;
                     User32.SetWindowLong ( handle, WindowLongParamFlags.GWL_EXSTYLE, new IntPtr ( windowLong ) );
-
                 }
             }
         }
@@ -92,29 +96,41 @@ namespace Sharp.Utils
         {
             var activatedHandle = User32.GetForegroundWindow ( );
 
-            if ( activatedHandle == IntPtr.Zero ) return false;
+            if ( activatedHandle == IntPtr.Zero )
+            {
+                return false;
+            }
 
             User32.GetWindowThreadProcessId ( activatedHandle, out var activeProcId );
 
             var target = Process.GetProcessesByName ( name ).FirstOrDefault ( );
 
             if ( target is null )
+            {
                 return false;
+            }
 
             return activeProcId == target.Id;
         }
+
         public static bool ApplicationIsActivated ( int id )
         {
             var activatedHandle = User32.GetForegroundWindow ( );
 
-            if ( activatedHandle == IntPtr.Zero ) return false;
+            if ( activatedHandle == IntPtr.Zero )
+            {
+                return false;
+            }
 
             User32.GetWindowThreadProcessId ( activatedHandle, out var activeProcId );
 
             var target = Process.GetProcessById ( id );
 
             if ( target is null )
+            {
                 return false;
+            }
+                
 
             return activeProcId == target.Id;
         }
@@ -123,7 +139,10 @@ namespace Sharp.Utils
         {
             var activatedHandle = User32.GetForegroundWindow ( );
 
-            if ( activatedHandle == IntPtr.Zero ) return false;
+            if ( activatedHandle == IntPtr.Zero )
+            {
+                return false;
+            }
 
             User32.GetWindowThreadProcessId ( activatedHandle, out var activeProcId );
 

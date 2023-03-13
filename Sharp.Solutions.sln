@@ -5,6 +5,10 @@ VisualStudioVersion = 17.2.32526.322
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp.WindowsApi", "Sharp.WindowsApi\Sharp.WindowsApi.csproj", "{B897A0A7-EF6C-47F0-A298-83B723A7DC29}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharp.ImGui", "Sharp.ImGui\Sharp.ImGui.csproj", "{24123957-2871-422F-930D-D9FD46D163F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp.Drawing", "Sharp.Drawing\Sharp.Drawing.csproj", "{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B897A0A7-EF6C-47F0-A298-83B723A7DC29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B897A0A7-EF6C-47F0-A298-83B723A7DC29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B897A0A7-EF6C-47F0-A298-83B723A7DC29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24123957-2871-422F-930D-D9FD46D163F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24123957-2871-422F-930D-D9FD46D163F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24123957-2871-422F-930D-D9FD46D163F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24123957-2871-422F-930D-D9FD46D163F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
