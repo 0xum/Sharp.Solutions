@@ -11,7 +11,6 @@
     - Simulate Mouse Clicks or Movements.
     - Set cursor position to some location on screen.
 
-.
 - Window Management.
     - Allocate, show or hide a console in any aplication.
     - Bring window to foreground.
@@ -20,7 +19,6 @@
     - Check if some or current application is activated (Is on foreground)
     - Get Window Size.
 
-.
 - Memory Management.
     - Open process memory.
     - Dump process modules.
@@ -29,7 +27,6 @@
 
 # Graphic Features.
 
-.
 - Overlay
     - Handles ImGui on top of windows.
     - Handles Drawing on top of windows.
