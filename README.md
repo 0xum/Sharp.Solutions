@@ -2,6 +2,7 @@
 
 - This project has a very simple objective: Create an acessible, easy to use windows api.
     - You can use it for good or bad things, it's up to you.
+    - Pull requests are highly welcome.
 
 # Management Features.
 

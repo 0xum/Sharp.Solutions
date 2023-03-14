@@ -28,10 +28,21 @@ namespace Sharp.ImGUI
 
         public static SharpGui Instance;
 
+        /// <summary>
+        /// Called when gui is visible.
+        /// </summary>
         public virtual void OnGuiVisible ( ) { }
 
+        /// <summary>
+        /// Called when gui is hidden.
+        /// </summary>
         public virtual void OnGuiHidden ( ) { }
 
+        /// <summary>
+        /// Called on every updated frame from graphics.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public virtual void OnGuiDraw ( object sender, GameOverlay.Windows.DrawGraphicsEventArgs e )
         {
             Graphics.ClearScene ( BaseOverlay.Brush ( Color.Transparent ) );
