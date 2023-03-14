@@ -66,18 +66,8 @@ namespace Sharp.Example
 
             if ( !IsVisible )
             {
-                BaseOverlay.DrawText ( new Point ( 5, 5 ), "Press Insert to Show/Hide IMGUI", BaseOverlay.Brush ( Color.Lime ), 18 );
-                BaseOverlay.DrawText ( new Point ( 5, 25 ), "Press END to Close Program", BaseOverlay.Brush ( Color.Red ), 18 );
-            }
-
-            if ( Input.IsKeyPressed ( VirtualKeys.Return ) )
-            {
-                BaseOverlay.DrawText ( new Point ( 5, 45 ), "Return pressed.", BaseOverlay.Brush ( Color.Lime ), 18 );
-            }
-
-            if ( Input.IsKeyDown ( VirtualKeys.Return ) )
-            {
-                BaseOverlay.DrawText ( new Point ( 5, 65 ), "Return down.", BaseOverlay.Brush ( Color.Red ), 18 );
+                BaseOverlay.DrawText ( new Point ( 5, 80 ), "Press Insert to Show/Hide IMGUI", BaseOverlay.Brush ( Color.Lime ), 18 );
+                BaseOverlay.DrawText ( new Point ( 5, 100 ), "Press END to Close Program", BaseOverlay.Brush ( Color.Red ), 18 );
             }
         }
     }

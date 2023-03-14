@@ -143,7 +143,7 @@ namespace Sharp.ImGUI
                 if ( TargetProcess.HasExited )
                     break;
 
-                if ( Input.IsKeyDown ( EscapeKey ) )
+                if ( WindowManager.ApplicationIsActivated ( TargetProcess.Id ) && Input.IsKeyDown ( EscapeKey ) )
                     break;
 
                 FitToProcess ( );

@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PlatformTarget>x86</PlatformTarget>
+    <BaseOutputPath>..\Build\Programs\Sharp.Example\</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -15,6 +16,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Sharp.ImGui\Sharp.ImGui.csproj" />
     <ProjectReference Include="..\Sharp.WindowsApi\Sharp.WindowsApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Sharp.ImGui">
+      <HintPath>..\Build\Libs\Sharp.ImGui\Debug\net6.0\Sharp.ImGui.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

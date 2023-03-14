@@ -36,6 +36,8 @@ namespace Sharp.Utils
                  {
                      foreach ( VirtualKeys key in keys )
                      {
+                         Thread.Sleep ( 1 );
+
                          if ( IsKeyPressed ( key ) )
                          {
                              VirtualKeysHistory.Add ( key );
@@ -47,7 +49,7 @@ namespace Sharp.Utils
                          }
                      }
 
-                     Thread.Sleep ( 50 );
+                     Thread.Sleep ( 100 );
                  }
              } );
 
