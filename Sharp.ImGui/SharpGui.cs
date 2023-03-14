@@ -17,30 +17,38 @@ using ImGui = ImGuiNET.ImGui;
 using Sharp.Utils;
 using Sharp.Enums;
 
-#pragma warning disable CS8618 
+using Sharp.ImGUI.Overlay;
 
-namespace Sharp.ImGui
+#pragma warning disable CS8618
+
+namespace Sharp.ImGUI
 {
     public class SharpGui
     {
 
         public static SharpGui Instance;
 
-        public virtual void OnVisible ( ) { }
+        public virtual void OnGuiVisible ( ) { }
 
-        public virtual void OnHidden ( ) { }
+        public virtual void OnGuiHidden ( ) { }
+
+        public virtual void OnGuiDraw ( object sender, GameOverlay.Windows.DrawGraphicsEventArgs e )
+        {
+            Graphics.ClearScene ( BaseOverlay.Brush ( Color.Transparent ) );
+            BaseOverlay.FitTo ( Sdl2Window.Handle );
+            BaseOverlay.IsTopmost = WindowManager.ApplicationIsActivated ( TargetProcess.Id );
+        }
 
         public SharpGui ( Process process, float framesPerSecond = 60f, bool isVisible = true )
         {
-
             OverlayProcess ( process, framesPerSecond );
 
             IsVisible = isVisible;
             Instance = this;
-
         }
 
         public bool IsVisible;
+        public bool HasExited;
 
         public Sdl2Window Sdl2Window;
         public GraphicsDevice GraphicsDevice;
@@ -51,6 +59,8 @@ namespace Sharp.ImGui
         public VirtualKeys ToggleVisibilityKey = VirtualKeys.Insert, EscapeKey = VirtualKeys.End;
         public Vector4 BackgroundColor = new Vector4(0.0f, 0.00f, 0.00f, 0.55f);
         public Vector4 ClearColor = new Vector4(0f, 0f, 0f, 0f);
+        public BaseOverlay BaseOverlay;
+        public GameOverlay.Drawing.Graphics Graphics => BaseOverlay.Graphics;
 
         void HandleReResize ( )
         {
@@ -66,7 +76,6 @@ namespace Sharp.ImGui
             }
         }
 
-
         void HandleVisibility ( )
         {
 
@@ -77,23 +86,6 @@ namespace Sharp.ImGui
                 {
 
                     IsVisible = !IsVisible;
-
-                    //if ( IsVisible )
-                    //{
-
-                    //    Windows.SetCurrentWindowAsForeground ( );
-
-                    //    Input.SetCursorPosition ( WindowSize.X + WindowSize.Width / 2, WindowSize.Y + WindowSize.Height / 2 );
-
-                    //    Input.MouseEvent ( MouseEventFlags.LeftDown );
-                    //    Input.MouseEvent ( MouseEventFlags.LeftUp );
-
-                    //}
-                    //else
-                    //{
-
-                    //    Windows.SetWindowAsForeground ( TargetProcess.MainWindowHandle );
-                    //}
                 }
             }
 
@@ -130,6 +122,9 @@ namespace Sharp.ImGui
 
             Sdl2Window = new Sdl2Window ( string.Empty, WindowSize.X, WindowSize.Y, WindowSize.Width, WindowSize.Height, SDL_WindowFlags.SkipTaskbar | SDL_WindowFlags.Borderless | SDL_WindowFlags.AlwaysOnTop, true );
 
+            BaseOverlay = new BaseOverlay ( Sdl2Window.Handle, ( int ) framesPerSecond );
+            BaseOverlay.DrawGraphics += OnGuiDraw;
+
             GraphicsDevice = VeldridStartup.CreateGraphicsDevice ( Sdl2Window, graphicsDeviceOptions );
 
             Sdl2Window.Resized += HandleReResize;
@@ -143,6 +138,12 @@ namespace Sharp.ImGui
                 WindowManager.EnableTransparency ( Sdl2Window.Handle, WindowSize );
 
                 if ( !Sdl2Window.Exists )
+                    break;
+
+                if ( TargetProcess.HasExited )
+                    break;
+
+                if ( Input.IsKeyDown ( EscapeKey ) )
                     break;
 
                 FitToProcess ( );
@@ -160,9 +161,9 @@ namespace Sharp.ImGui
                 if ( WindowManager.ApplicationIsActivated ( TargetProcess.Id ) || WindowManager.CurrentApplicationIsActivated ( ) )
                 {
                     if ( IsVisible )
-                        OnVisible ( );
+                        OnGuiVisible ( );
                     else
-                        OnHidden ( );
+                        OnGuiHidden ( );
                 }
 
                 try
@@ -196,6 +197,9 @@ namespace Sharp.ImGui
             ImGuiController.Dispose ( );
             CommandList.Dispose ( );
             GraphicsDevice.Dispose ( );
+            BaseOverlay.Dispose ( );
+            Sdl2Window.Close ( );
+            HasExited = true;
         }
     }
 }

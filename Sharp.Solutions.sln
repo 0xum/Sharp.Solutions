@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp.WindowsApi", "Sharp.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sharp.ImGui", "Sharp.ImGui\Sharp.ImGui.csproj", "{24123957-2871-422F-930D-D9FD46D163F7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp.Drawing", "Sharp.Drawing\Sharp.Drawing.csproj", "{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sharp.Example", "Sharp.Example\Sharp.Example.csproj", "{B81B5C15-36BF-4B6B-B5B2-3A8D43D2AEFE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{24123957-2871-422F-930D-D9FD46D163F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24123957-2871-422F-930D-D9FD46D163F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24123957-2871-422F-930D-D9FD46D163F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FCFC8F8-B891-4904-81E2-5B94F35A81D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81B5C15-36BF-4B6B-B5B2-3A8D43D2AEFE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81B5C15-36BF-4B6B-B5B2-3A8D43D2AEFE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81B5C15-36BF-4B6B-B5B2-3A8D43D2AEFE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81B5C15-36BF-4B6B-B5B2-3A8D43D2AEFE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
