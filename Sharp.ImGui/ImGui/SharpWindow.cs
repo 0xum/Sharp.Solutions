@@ -18,55 +18,50 @@ using Sharp.Utils;
 using Sharp.Enums;
 
 using Sharp.ImGUI.Overlay;
+using Rectangle = System.Drawing.Rectangle;
 
 #pragma warning disable CS8618
 
 namespace Sharp.ImGUI
 {
-    public class SharpGui
+    public class SharpWindow
     {
 
-        public static SharpGui Instance;
+        public static SharpWindow Instance;
 
         /// <summary>
         /// Called when gui is visible.
         /// </summary>
-        public virtual void OnGuiVisible ( ) { }
-
-        /// <summary>
-        /// Called when gui is hidden.
-        /// </summary>
-        public virtual void OnGuiHidden ( ) { }
+        public virtual void OnGui ( ) { }
 
         /// <summary>
         /// Called on every updated frame from graphics.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         public virtual void OnGuiDraw ( object sender, GameOverlay.Windows.DrawGraphicsEventArgs e )
         {
             Graphics.ClearScene ( BaseOverlay.Brush ( Color.Transparent ) );
             BaseOverlay.FitTo ( Sdl2Window.Handle );
-            BaseOverlay.IsTopmost = WindowManager.ApplicationIsActivated ( TargetProcess.Id );
+            BaseOverlay.IsTopmost = WindowManager.CurrentApplicationIsActivated ( );
         }
 
-        public SharpGui ( Process process, float framesPerSecond = 60f, bool isVisible = true )
+        public SharpWindow ( Rectangle size, float framesPerSecond = 60f, bool isVisible = true )
         {
-            IsVisible = isVisible;
+            // Find antoher way to get the screen bounds.
+            WindowSize = size;
             Instance = this;
 
-            OverlayProcess ( process, framesPerSecond );
+            CreateWindow ( framesPerSecond );
         }
 
         public bool IsVisible;
         public bool HasExited;
 
+        public Rectangle WindowSize;
         public Sdl2Window Sdl2Window;
         public GraphicsDevice GraphicsDevice;
         public CommandList CommandList;
         public ImGuiController ImGuiController;
-        public Process TargetProcess;
-        public System.Drawing.Rectangle WindowSize;
+        public Process TargetProcess => Process.GetCurrentProcess ( );
         public VirtualKeys ToggleVisibilityKey = VirtualKeys.Insert, EscapeKey = VirtualKeys.End;
         public Vector4 BackgroundColor = new Vector4(0.0f, 0.00f, 0.00f, 0.55f);
         public Vector4 ClearColor = new Vector4(0f, 0f, 0f, 0f);
@@ -83,56 +78,15 @@ namespace Sharp.ImGUI
             }
             catch
             {
-
             }
         }
 
-        void HandleVisibility ( )
+        public void CreateWindow ( float framesPerSecond )
         {
-
-            if ( WindowManager.CurrentApplicationIsActivated ( ) || WindowManager.ApplicationIsActivated ( TargetProcess.Id ) )
-            {
-
-                if ( Input.IsKeyDown ( ToggleVisibilityKey ) )
-                {
-
-                    IsVisible = !IsVisible;
-                }
-            }
-
-            WindowManager.ManageClickThrough ( Sdl2Window.Handle, !IsVisible, true );
-        }
-
-        void FitToProcess ( )
-        {
-            var size = WindowManager.GetWindowSize(TargetProcess.MainWindowHandle);
-
-            if ( Sdl2Window != null )
-            {
-                if ( WindowSize != size )
-                {
-
-                    Sdl2Window.X = size.X;
-                    Sdl2Window.Y = size.Y;
-                    Sdl2Window.Width = size.Width;
-                    Sdl2Window.Height = size.Height;
-
-                    WindowSize = size;
-                }
-            }
-        }
-
-
-        public void OverlayProcess ( Process process, float framesPerSecond )
-        {
-
-            TargetProcess = process;
-
-            FitToProcess ( );
 
             var graphicsDeviceOptions = new GraphicsDeviceOptions(true, null, true);
 
-            Sdl2Window = new Sdl2Window ( string.Empty, WindowSize.X, WindowSize.Y, WindowSize.Width, WindowSize.Height, SDL_WindowFlags.SkipTaskbar | SDL_WindowFlags.Borderless | SDL_WindowFlags.AlwaysOnTop, true );
+            Sdl2Window = new Sdl2Window ( "ImGui Window", WindowSize.X, WindowSize.Y, WindowSize.Width, WindowSize.Height, SDL_WindowFlags.Resizable | SDL_WindowFlags.Shown, true );
 
             BaseOverlay = new BaseOverlay ( Sdl2Window.Handle, ( int ) framesPerSecond );
             BaseOverlay.DrawGraphics += OnGuiDraw;
@@ -148,7 +102,7 @@ namespace Sharp.ImGUI
 
             while ( Sdl2Window.Exists )
             {
-                WindowManager.EnableTransparency ( Sdl2Window.Handle, WindowSize );
+                //WindowManager.EnableTransparency ( Sdl2Window.Handle, WindowSize );
 
                 if ( !Sdl2Window.Exists )
                     break;
@@ -156,46 +110,42 @@ namespace Sharp.ImGUI
                 if ( TargetProcess.HasExited )
                     break;
 
-                if ( WindowManager.ApplicationIsActivated ( TargetProcess.Id ) && Input.IsKeyDown ( EscapeKey ) )
-                    break;
-
-                FitToProcess ( );
-                HandleVisibility ( );
-
                 ImGuiController.Update ( 1f / framesPerSecond, Sdl2Window.PumpEvents ( ) );
 
                 CommandList.Begin ( );
 
                 try
-                { CommandList.SetFramebuffer ( GraphicsDevice.MainSwapchain.Framebuffer ); }
-                catch { }
-
-
-                if ( WindowManager.ApplicationIsActivated ( TargetProcess.Id ) || WindowManager.CurrentApplicationIsActivated ( ) )
                 {
-                    if ( IsVisible )
-                        OnGuiVisible ( );
-                    else
-                        OnGuiHidden ( );
+                    CommandList.SetFramebuffer ( GraphicsDevice.MainSwapchain.Framebuffer );
                 }
+                catch
+                {
+                }
+
+                OnGui ( );
 
                 try
                 {
-
                     if ( WindowManager.CurrentApplicationIsActivated ( ) || WindowManager.ApplicationIsActivated ( TargetProcess.Id ) )
                     {
 
                         if ( IsVisible )
+                        {
                             CommandList.ClearColorTarget ( 0, new RgbaFloat ( BackgroundColor.X, BackgroundColor.Y, BackgroundColor.Z, BackgroundColor.W ) );
+                        }
                         else
+                        {
                             CommandList.ClearColorTarget ( 0, new RgbaFloat ( ClearColor.X, ClearColor.Y, ClearColor.Z, ClearColor.W ) );
-
+                        }
                     }
                     else
+                    {
                         CommandList.ClearColorTarget ( 0, new RgbaFloat ( ClearColor.X, ClearColor.Y, ClearColor.Z, ClearColor.W ) );
-
+                    }
                 }
-                catch { }
+                catch
+                {
+                }
 
                 ImGuiController.Render ( GraphicsDevice, CommandList );
 

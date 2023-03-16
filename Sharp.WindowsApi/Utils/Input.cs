@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 
 using Sharp.Enums;
@@ -19,7 +20,7 @@ namespace Sharp.Utils
 
         private static List<VirtualKeys> VirtualKeysHistory { get; set; }
 
-        static Thread KeyCaptureThread;
+        private static Thread KeyCaptureThread { get; set; }
 
         /// <summary>
         /// Creates a keyboard history.
@@ -207,6 +208,16 @@ namespace Sharp.Utils
 
                     break;
             }
+        }
+
+        /// <summary>
+        /// Return the cursor position on screen.
+        /// </summary>
+        public static Point GetMousePoint ( )
+        {
+            User32.GetCursorPos ( out var point );
+
+            return point;
         }
     }
 }

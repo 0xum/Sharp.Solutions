@@ -1,42 +1,42 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <PlatformTarget>x86</PlatformTarget>
-    <BaseOutputPath>..\Build\Libs\Sharp.ImGui\</BaseOutputPath>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<PlatformTarget>x86</PlatformTarget>
+		<BaseOutputPath>..\Build\Libs\Sharp.ImGui\</BaseOutputPath>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <WarningLevel>0</WarningLevel>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<WarningLevel>0</WarningLevel>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <WarningLevel>0</WarningLevel>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<WarningLevel>0</WarningLevel>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Shaders\GLSL\imgui-frag.glsl" />
-    <None Remove="Shaders\GLSL\imgui-vertex.glsl" />
-    <None Remove="Shaders\HLSL\imgui-frag.glsl" />
-    <None Remove="Shaders\HLSL\imgui-frag.hlsl" />
-    <None Remove="Shaders\HLSL\imgui-frag.hlsl.bytes" />
-    <None Remove="Shaders\HLSL\imgui-vertex.glsl" />
-    <None Remove="Shaders\HLSL\imgui-vertex.hlsl" />
-    <None Remove="Shaders\HLSL\imgui-vertex.hlsl.bytes" />
-    <None Remove="Shaders\Metal\imgui-frag.metal" />
-    <None Remove="Shaders\Metal\imgui-frag.metallib" />
-    <None Remove="Shaders\Metal\imgui-vertex.metal" />
-    <None Remove="Shaders\Metal\imgui-vertex.metallib" />
-    <None Remove="Shaders\SPIR-V\generate-spirv.bat" />
-    <None Remove="Shaders\SPIR-V\imgui-frag.glsl" />
-    <None Remove="Shaders\SPIR-V\imgui-frag.spv" />
-    <None Remove="Shaders\SPIR-V\imgui-vertex.glsl" />
-    <None Remove="Shaders\SPIR-V\imgui-vertex.spv" />
-  </ItemGroup>
+	<ItemGroup>
+		<None Remove="Shaders\GLSL\imgui-frag.glsl" />
+		<None Remove="Shaders\GLSL\imgui-vertex.glsl" />
+		<None Remove="Shaders\HLSL\imgui-frag.glsl" />
+		<None Remove="Shaders\HLSL\imgui-frag.hlsl" />
+		<None Remove="Shaders\HLSL\imgui-frag.hlsl.bytes" />
+		<None Remove="Shaders\HLSL\imgui-vertex.glsl" />
+		<None Remove="Shaders\HLSL\imgui-vertex.hlsl" />
+		<None Remove="Shaders\HLSL\imgui-vertex.hlsl.bytes" />
+		<None Remove="Shaders\Metal\imgui-frag.metal" />
+		<None Remove="Shaders\Metal\imgui-frag.metallib" />
+		<None Remove="Shaders\Metal\imgui-vertex.metal" />
+		<None Remove="Shaders\Metal\imgui-vertex.metallib" />
+		<None Remove="Shaders\SPIR-V\generate-spirv.bat" />
+		<None Remove="Shaders\SPIR-V\imgui-frag.glsl" />
+		<None Remove="Shaders\SPIR-V\imgui-frag.spv" />
+		<None Remove="Shaders\SPIR-V\imgui-vertex.glsl" />
+		<None Remove="Shaders\SPIR-V\imgui-vertex.spv" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<EmbeddedResource Include="Shaders/GLSL/imgui-vertex.glsl" LogicalName="imgui-vertex.glsl" />
@@ -49,28 +49,31 @@
 		<EmbeddedResource Include="Shaders/Metal/imgui-frag.metallib" LogicalName="imgui-frag.metallib" />
 	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Costura.Fody" Version="5.7.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="GameOverlay.Net" Version="4.3.1" />
-    <PackageReference Include="ImGui.NET" Version="1.89.4" />
-    <PackageReference Include="Veldrid" Version="4.9.0" />
-    <PackageReference Include="Veldrid.StartupUtilities" Version="4.9.0" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Costura.Fody" Version="5.7.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="GameOverlay.Net" Version="4.3.1" />
+		<PackageReference Include="ImGui.NET" Version="1.89.4" />
+		<PackageReference Include="Veldrid" Version="4.9.0" />
+		<PackageReference Include="Veldrid.StartupUtilities" Version="4.9.0" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sharp.WindowsApi\Sharp.WindowsApi.csproj" />
-  </ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Sharp.WindowsApi\Sharp.WindowsApi.csproj" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Reference Include="ImGui.NET">
-      <HintPath>..\packages\ImGui.Net\ImPlot.NET\net6.0\ImGui.NET.dll</HintPath>
-    </Reference>
-    <Reference Include="ImPlot.NET">
-      <HintPath>..\packages\ImGui.Net\ImPlot.NET\net6.0\ImPlot.NET.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+	<ItemGroup>
+		<Reference Include="ImGui.NET">
+			<HintPath>..\packages\ImGui.Net\ImPlot.NET\net6.0\ImGui.NET.dll</HintPath>
+		</Reference>
+		<Reference Include="ImPlot.NET">
+			<HintPath>..\packages\ImGui.Net\ImPlot.NET\net6.0\ImPlot.NET.dll</HintPath>
+		</Reference>
+		<Reference Include="System.Windows.Forms">
+		  <HintPath>C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.8\System.Windows.Forms.dll</HintPath>
+		</Reference>
+	</ItemGroup>
 
 </Project>

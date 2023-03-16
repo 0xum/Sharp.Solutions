@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Drawing;
+using System.Runtime.InteropServices;
 
 namespace Sharp.Structs
 {
@@ -12,6 +13,11 @@ namespace Sharp.Structs
         {
             X = x;
             Y = y;
+        }
+
+        public static implicit operator Point ( MousePoint point )
+        {
+            return new Point ( point.X, point.Y );
         }
     }
 }
