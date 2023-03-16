@@ -29,8 +29,8 @@
 # Graphic Features.
 
 - <b>Overlay</b>
-    - Handles ImGui on top of windows.
-    - Handles Drawing on top of windows.
+    - Handles ImGui and Drawing on top of windows.
+    - Create a window that renders ImGui and Drawing.
 
 # Target OS
 
