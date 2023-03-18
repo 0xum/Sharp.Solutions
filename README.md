@@ -43,3 +43,7 @@
 <img src="https://img.shields.io/badge/.NET 6.0-5C2D91?style=for-the-badge&logo=csharp&logoColor=white" />
 
 - <b>Codded using .NET Framework 6.0</b>
+
+## Preview
+
+https://user-images.githubusercontent.com/93303971/226133986-cd227ccf-9c0c-4b7b-b335-06f996ea3b6e.mp4
