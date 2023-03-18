@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Diagnostics;
+using System.Drawing;
 
 namespace Sharp.Example
 {
@@ -7,10 +8,10 @@ namespace Sharp.Example
         private static void Main ( string [ ] args )
         {
             // Creates a window with ImGui rendering inside.
-            ImGuiWindow.CreateImGuiWindow ( new Rectangle ( 160, 90, 1280, 720 ) );
+            // new ImGuiWindow ( new Rectangle ( 160, 90, 1280, 720 ) );
 
             // Creates a ImGui overlay on a process window.
-            // ImGuiOverlay.CrateImGuiOverlay ( "notepad" );
+            new ImGuiOverlay ( Process.GetProcessesByName( "notepad" ).FirstOrDefault() );
         }
     }
 }

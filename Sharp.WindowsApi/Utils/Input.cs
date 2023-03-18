@@ -211,7 +211,7 @@ namespace Sharp.Utils
         }
 
         /// <summary>
-        /// Return the cursor position on screen.
+        /// Return the cursor position on screen as a <see langword="System.Drawing.Point"/>.
         /// </summary>
         public static Point GetMousePoint ( )
         {
