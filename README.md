@@ -43,7 +43,3 @@
 <img src="https://img.shields.io/badge/.NET 6.0-5C2D91?style=for-the-badge&logo=csharp&logoColor=white" />
 
 - <b>Codded using .NET Framework 6.0</b>
-
-
-## Preview
-<div style="width:100%;height:0px;position:relative;padding-bottom:56.250%;"><iframe src="https://streamable.com/e/e6be8z" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
