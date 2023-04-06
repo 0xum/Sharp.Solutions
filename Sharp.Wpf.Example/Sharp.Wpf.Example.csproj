@@ -95,13 +95,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sharp.ImGui.Wpf\Sharp.ImGui.Wpf.csproj">
+      <Project>{fd8de51b-327d-4ef0-888c-868b3215b48c}</Project>
+      <Name>Sharp.ImGui.Wpf</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Sharp.WindowsApi\Sharp.WindowsApi.csproj">
       <Project>{b897a0a7-ef6c-47f0-a298-83b723a7dc29}</Project>
       <Name>Sharp.WindowsApi</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Sharp.Wpf\Sharp.ImGui.Wpf.csproj">
-      <Project>{8a67b047-4e52-410d-81cb-da3f6cfb1016}</Project>
-      <Name>Sharp.ImGui.Wpf</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

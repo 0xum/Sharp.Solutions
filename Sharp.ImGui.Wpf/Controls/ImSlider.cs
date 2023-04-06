@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -83,7 +84,7 @@ namespace Sharp.ImGui.Wpf.Controls
 
         private void OnTextChanged ( object sender, TextChangedEventArgs e )
         {
-            if ( double.TryParse ( m_editBox.Text, out var newValue ) )
+            if ( double.TryParse ( m_editBox.Text, out var newValue ) && !Double.IsNaN ( newValue ) && !Double.IsInfinity ( newValue ) )
             {
 
                 if ( newValue > m_slider.Maximum )
@@ -103,7 +104,11 @@ namespace Sharp.ImGui.Wpf.Controls
                     m_slider.Value = newValue;
                     m_sliderValue = newValue;
                 }
-
+            }
+            else
+            {
+                m_slider.Value = m_sliderValue;
+                m_editBox.Text = m_sliderValue.ToString ( "F" );
             }
         }
 

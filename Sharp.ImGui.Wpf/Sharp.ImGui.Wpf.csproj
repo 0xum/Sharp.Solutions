@@ -5,6 +5,7 @@
     <Product>ImGui.Wpf</Product>
     <Copyright>Copyright ©  2019</Copyright>
     <OutputPath>bin\$(Configuration)\</OutputPath>
+    <BaseOutputPath>D:\Projects\CSharp\Sharp.Solutions\Build\Libs\Sharp.ImGui.Wpf</BaseOutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -14,9 +15,6 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Controls\ImComboBox.cs~RFde42ae.TMP" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="WPF-UI" Version="2.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PresentationCore" />
