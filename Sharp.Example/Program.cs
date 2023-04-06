@@ -8,10 +8,10 @@ namespace Sharp.Example
         private static void Main ( string [ ] args )
         {
             // Creates a window with ImGui rendering inside.
-            // new ImGuiWindow ( new Rectangle ( 160, 90, 1280, 720 ) );
+            new ImGuiWindow ( new Rectangle ( 160, 90, 1280, 720 ) );
 
             // Creates a ImGui overlay on a process window.
-            new ImGuiOverlay ( Process.GetProcessesByName( "notepad" ).FirstOrDefault() );
+            //new ImGuiOverlay ( Process.GetProcessesByName( "notepad" ).FirstOrDefault() );
         }
     }
 }

@@ -60,6 +60,7 @@ namespace Sharp.Utils
             Margins margins = Margins.FromRectangle ( size );
             DwmApi.DwmExtendFrameIntoClientArea ( handle, ref margins );
         }
+
         public static void ManageClickThrough ( IntPtr handle, bool state, bool stealthMode = true )
         {
 
@@ -130,7 +131,6 @@ namespace Sharp.Utils
             {
                 return false;
             }
-                
 
             return activeProcId == target.Id;
         }
@@ -148,6 +148,7 @@ namespace Sharp.Utils
 
             return activeProcId == Process.GetCurrentProcess ( ).Id;
         }
+
         public static void SetCurrentWindowAsForeground ( )
         {
             User32.SetForegroundWindow ( Process.GetCurrentProcess ( ).MainWindowHandle );
