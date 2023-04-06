@@ -32,6 +32,13 @@
     - Handles ImGui and Drawing on top of windows.
     - Create a window that renders ImGui and Drawing.
 
+- <b>ImGui WPF</b>
+    - Implemented the ImGuiWPF in the solution.
+        - Original Project Git: https://github.com/samoatesgames/ImGui.Wpf
+        - All the credit goes to him. I just changed the NAMESPACE to match with the rest of the source.
+        - It also has a example project.
+        - I also extended some components and added a ToolTip to some. Soon all components should have a tooltip option.
+
 # Target OS
 
 <img src="https://img.shields.io/badge/Windows-017AD7?style=for-the-badge&logo=windows&logoColor=white" />
